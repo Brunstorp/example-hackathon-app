@@ -14,8 +14,14 @@ A simple Flask-based trading application that demonstrates a placeholder strateg
 1. **Clone the Repository**
 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/Brunstorp/example-hackathon-app.git
    cd example-hackathon-app
+
+2. **Install Dependenvies with Pipenv
+   ```bash
+   pip install pipenv
+   pipenv install requirements.txt
+
 
 
 
