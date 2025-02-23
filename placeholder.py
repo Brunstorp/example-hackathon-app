@@ -13,9 +13,25 @@ lh.init(API_KEY)
 
 @retry(wait=wait_fixed(2), stop=stop_after_attempt(3), retry=retry_if_exception_type(Exception))
 def safe_placeholder_strategy():
+    """
+    Wrapper function to safely execute the placeholder strategy with retry logic.
+    If an exception occurs, the function will automatically retry up to 3 times with a 2-second delay.
+    """
     return placeholder_strategy()
 
 def placeholder_strategy():
+    """
+    Placeholder strategy function to demonstrate how to retrieve and compare stock prices.
+    The function follows these steps:
+    1. Retrieves all available tickers.
+    2. For each ticker, fetches the current ask price (current price).
+    3. Retrieves historical data for the ticker and calculates the price two days ago (old price).
+    4. Compares the old price with the current price and places a buy order if the old price is greater.
+    5. A retry mechanism ensures the process is robust, even if errors occur during execution.
+
+    Returns a status message and a count of how many trades were placed.
+    """
+
     global count
     tickers = lh.get_all_tickers()
     if not tickers:
@@ -51,6 +67,10 @@ def placeholder_strategy():
     return {"status": "Strategy executed", "count": count}
 
 def sell_all_stocks():
+    """
+    Function to sell all stocks in the portfolio.
+    This function retrieves the current portfolio, cancels any outstanding orders, and then sells all the stocks in the portfolio.
+    """
     print("Selling all stocks")
     portfolio = lh.get_portfolio()
     print("Selling all stocks in portfolio: ", portfolio)
